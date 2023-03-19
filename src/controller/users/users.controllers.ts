@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import UsersModel from "../../model/users.model";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+require("dotenv").config();
 exports.logIn = async (req: Request, res: Response) => {
   try {
     // Get user input
@@ -17,7 +18,7 @@ exports.logIn = async (req: Request, res: Response) => {
       // Create token
       const token = jwt.sign(
         { user_id: user._id, email },
-        process.env.TOKEN_KEY,
+        process.env.TOKEN_KEY as string,
         {
           expiresIn: "2h",
         }
@@ -57,7 +58,7 @@ exports.signUp = async (req: Request, res: Response) => {
     // Create token
     const token = jwt.sign(
       { user_id: user._id, email },
-      process.env.TOKEN_KEY,
+      process.env.TOKEN_KEY as string,
       {
         expiresIn: "2h",
       }
