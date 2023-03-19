@@ -10,9 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(router);
-
+connectToDB();
 app.listen(process.env.PORT, () =>
   console.log(`Listening on http://localhost:${process.env.PORT}`)
 );
-
-connectToDB();
