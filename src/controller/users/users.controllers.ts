@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import UsersModel from "../../model/users.model";
-const usersServices = require("../../services/users.services");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 exports.logIn = async (req: Request, res: Response) => {
   try {
     // Get user input
