@@ -23,11 +23,11 @@ exports.logIn = async (req: Request, res: Response) => {
           expiresIn: "2h",
         }
       );
-
-      // save user token
-      user.token = token;
-      // user
-      return res.status(200).json(user);
+      return res.status(200).json({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        token: token,
+      });
     }
     return res.status(400).send("Invalid Credentials");
   } catch (err) {
@@ -55,6 +55,7 @@ exports.signUp = async (req: Request, res: Response) => {
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword,
     });
+    user.save();
     // Create token
     const token = jwt.sign(
       { user_id: user._id, email },
@@ -63,10 +64,12 @@ exports.signUp = async (req: Request, res: Response) => {
         expiresIn: "2h",
       }
     );
-    // save user token
-    user.token = token;
     // return new user
-    res.status(201).json(user);
+    res.status(201).json({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      token: token,
+    });
   } catch (err) {
     console.log(err);
   }
